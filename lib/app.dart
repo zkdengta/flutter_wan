@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan/drawer/drawer.dart';
 
 //应用页面使用有状态Widget
 class App extends StatefulWidget {
@@ -19,7 +20,7 @@ class _AppSate extends State<App> {
     return WillPopScope( //双击返回与界面退出提示
       onWillPop: _onWillPop,
       child: Scaffold(
-      //  drawer: DrawerPage(),
+        drawer: DrawerPage(),
         appBar: AppBar(
           title: new Text(appBarTitles[_selectedIndex]),
           bottom: null,
