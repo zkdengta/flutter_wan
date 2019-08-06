@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/drawer/drawer.dart';
+import 'package:flutter_wan/search/search.dart';
 
 //应用页面使用有状态Widget
 class App extends StatefulWidget {
@@ -28,10 +29,10 @@ class _AppSate extends State<App> {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: (){
-//                Navigator.of(context).push(new MaterialPageRoute(
-//                    builder: (context){return new SearchPage();}
-//                    )
-//                );
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (context){return new SearchPage();}
+                    )
+                );
               },
             )
           ],
