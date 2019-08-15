@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/drawer/drawer.dart';
-import 'package:flutter_wan/search/search.dart';
+import 'package:flutter_wan/ui/search/search.dart';
 
 //应用页面使用有状态Widget
 class App extends StatefulWidget {

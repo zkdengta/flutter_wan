@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wan/model/hotword_model.dart';
 import 'package:flutter_wan/util/utils.dart';
 import 'package:flutter_wan/http/api_service.dart';
+import 'package:flutter_wan/ui/search/hot_search_result.dart';
 
 class SearchPage extends StatefulWidget{
   @override
@@ -60,9 +61,9 @@ class _SearchPageState extends State<SearchPage> {
       if (editingController.text == null || editingController.text == "") {
 
       }else{
-//        Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-//          return new HotResultPage(editingController.text);
-//        }));
+        Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+          return new HotResultPage(editingController.text);
+        }));
       }
     });
   }
@@ -113,9 +114,9 @@ class _SearchPageState extends State<SearchPage> {
             label: new Text(item.name),
         ),
         onTap: (){
-//          Navigator.of(context).push(new MaterialPageRoute(builder: (context){
-//            return new HosResultPage();
-//          }));
+          Navigator.of(context).push(new MaterialPageRoute(builder: (context){
+            return new HotResultPage(item.name);
+          }));
         },
       ));
     }
