@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/drawer/drawer.dart';
 import 'package:flutter_wan/ui/search/search.dart';
+import 'package:flutter_wan/ui/home/home_page.dart';
+import 'package:flutter_wan/ui/knowledge/knowledge_page.dart';
+import 'package:flutter_wan/ui/tencent/tencent_page.dart';
+import 'package:flutter_wan/ui/navgation/navgation_page.dart';
+import 'package:flutter_wan/ui/project/project_page.dart';
 
 //应用页面使用有状态Widget
 class App extends StatefulWidget {
@@ -14,6 +19,14 @@ class _AppSate extends State<App> {
   int _selectedIndex = 0; //当前选中项的索引
   final appBarTitles = ['玩Android', '体系', '公众号', '导航', "项目"];
   int elevation = 4;
+
+  var pages = <Widget>[
+    HomePage(),
+//    KnowledgePage(),
+//    TencentPage(),
+//    NavigationPage(),
+//    ProjectPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +51,7 @@ class _AppSate extends State<App> {
           ],
         ),
         body: new IndexedStack(
-         //children: pages,
+          children: pages,
           index: _selectedIndex,
         ),
         //底部导航按钮 包含图标及文本

@@ -4,7 +4,8 @@ import 'package:flutter_wan/http/api.dart';
 import 'package:flutter_wan/model/hotword_model.dart';
 import 'package:flutter_wan/common/user.dart';
 import 'package:flutter_wan/model/hotword_result_model.dart';
-
+import 'package:flutter_wan/model/article_model.dart';
+import 'package:flutter_wan/model/banner_model.dart';
 
 class ApiService{
 
@@ -30,6 +31,25 @@ class ApiService{
       callback(HotwordResultModel.fromMap(response.data));
     }).catchError((e){
       errorback(e);
+    });
+  }
+  ///获取文章列表
+  void getArticleList(Function callback,Function errorback,int page) async {
+    DioManager.singleton.dio
+        .get(Api.HOME_ARTICLE_LIST + "$page/json",options:_getOptions())
+        .then((response){
+          callback(ArticleModel(response.data));
+    }).catchError((e){
+      errorback(e);
+    });
+  }
+
+  ///轮播图
+  void getBanner(Function callback) async {
+    DioManager.singleton.dio
+        .get(Api.HOME_BANNER, options: _getOptions())
+        .then((response) {
+      callback(BannerModel(response.data));
     });
   }
 
