@@ -6,6 +6,7 @@ import 'package:flutter_wan/common/user.dart';
 import 'package:flutter_wan/model/hotword_result_model.dart';
 import 'package:flutter_wan/model/article_model.dart';
 import 'package:flutter_wan/model/banner_model.dart';
+import 'package:flutter_wan/model/system_tree_model.dart';
 
 class ApiService{
 
@@ -52,6 +53,19 @@ class ApiService{
       callback(BannerModel(response.data));
     });
   }
+
+  /// 获取知识体系列表
+  void getSystemTree(Function callback,Function errorback){
+    DioManager.singleton.dio
+        .get(Api.SYSTEM_TREE,options:_getOptions())
+        .then((response){
+          callback(SystemTreeModel(response.data));
+    }).catchError((e){
+      errorback(e);
+    });
+  }
+
+
 
   Options _getOptions() {
     Map<String, String> map = new Map();

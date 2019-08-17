@@ -22,7 +22,7 @@ class _AppSate extends State<App> {
 
   var pages = <Widget>[
     HomePage(),
-//    KnowledgePage(),
+    KnowledgePage(),
 //    TencentPage(),
 //    NavigationPage(),
 //    ProjectPage()
