@@ -7,6 +7,7 @@ import 'package:flutter_wan/model/hotword_result_model.dart';
 import 'package:flutter_wan/model/article_model.dart';
 import 'package:flutter_wan/model/banner_model.dart';
 import 'package:flutter_wan/model/system_tree_model.dart';
+import 'package:flutter_wan/model/system_tree_content_model.dart';
 
 class ApiService{
 
@@ -60,6 +61,17 @@ class ApiService{
         .get(Api.SYSTEM_TREE,options:_getOptions())
         .then((response){
           callback(SystemTreeModel(response.data));
+    }).catchError((e){
+      errorback(e);
+    });
+  }
+
+  /// 获取知识体系列表详情
+  void getSystemTreeContent(Function callback, Function errorback,int _page, int _id) async {
+    DioManager.singleton.dio
+        .get(Api.SYSTEM_TREE_CONTENT + "$_page/json?cid=$_id",options:_getOptions())
+        .then((response){
+          callback(SystemTreeContentModel(response.data));
     }).catchError((e){
       errorback(e);
     });

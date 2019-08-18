@@ -9,4 +9,6 @@ class Api{
   static const String HOME_BANNER = "https://www.wanandroid.com/banner/json";
   // 知识体系
   static const String SYSTEM_TREE = "https://www.wanandroid.com/tree/json";
+  // 知识体系详情
+  static const String SYSTEM_TREE_CONTENT = "https://www.wanandroid.com/article/list/";
 }

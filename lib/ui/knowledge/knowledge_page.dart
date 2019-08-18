@@ -5,6 +5,7 @@ import 'package:flutter_wan/base/base_widget.dart';
 import 'package:flutter_wan/http/api_service.dart';
 import 'package:flutter_wan/util/utils.dart';
 import 'package:flutter_wan/model/system_tree_model.dart';
+import 'package:flutter_wan/ui/knowledge/knowledge_content_page.dart';
 
 class KnowledgePage extends BaseWidget {
   @override
@@ -121,7 +122,10 @@ class KnowledgePageState extends BaseWidgetState<KnowledgePage>{
     if(index < _datas.length){
       return InkWell(
         onTap: (){
-
+          Navigator.of(context)
+              .push(new MaterialPageRoute(builder: (context) {
+            return new KnowledgeContentPage(new ValueKey(_datas[index]));
+          }));
         },
         child: Container(
           color: Colors.white,
