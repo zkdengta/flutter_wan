@@ -8,6 +8,8 @@ import 'package:flutter_wan/model/article_model.dart';
 import 'package:flutter_wan/model/banner_model.dart';
 import 'package:flutter_wan/model/system_tree_model.dart';
 import 'package:flutter_wan/model/system_tree_content_model.dart';
+import 'package:flutter_wan/model/wx_article_content_model.dart';
+import 'package:flutter_wan/model/wx_article_title_model.dart';
 
 class ApiService{
 
@@ -73,6 +75,26 @@ class ApiService{
         .then((response){
           callback(SystemTreeContentModel(response.data));
     }).catchError((e){
+      errorback(e);
+    });
+  }
+
+  /// 获取公众号文章
+  void getWxArticleList(Function callback, int _id, int _page) async {
+    DioManager.singleton.dio
+        .get(Api.WX_ARTICLE_LIST + "$_id/$_page/json", options: _getOptions())
+        .then((response) {
+      callback(WxArticleContentModel(response.data));
+    });
+  }
+
+  /// 获取公众号名称
+  void getWxList(Function callback, Function errorback) async {
+    DioManager.singleton.dio
+        .get(Api.WX_LIST, options: _getOptions())
+        .then((response) {
+      callback(WxArticleTitleModel(response.data));
+    }).catchError((e) {
       errorback(e);
     });
   }

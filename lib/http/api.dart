@@ -11,4 +11,8 @@ class Api{
   static const String SYSTEM_TREE = "https://www.wanandroid.com/tree/json";
   // 知识体系详情
   static const String SYSTEM_TREE_CONTENT = "https://www.wanandroid.com/article/list/";
+  // 公众号文章
+  static const String WX_ARTICLE_LIST = "https://wanandroid.com/wxarticle/list/";
+  // 公众号名称
+  static const String WX_LIST = "https://wanandroid.com/wxarticle/chapters/json";
 }
