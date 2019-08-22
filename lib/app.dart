@@ -24,8 +24,8 @@ class _AppSate extends State<App> {
     HomePage(),
     KnowledgePage(),
     TencentPage(),
-//    NavigationPage(),
-//    ProjectPage()
+    NavigationPage(),
+    ProjectPage()
   ];
 
   @override

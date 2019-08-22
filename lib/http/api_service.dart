@@ -10,6 +10,9 @@ import 'package:flutter_wan/model/system_tree_model.dart';
 import 'package:flutter_wan/model/system_tree_content_model.dart';
 import 'package:flutter_wan/model/wx_article_content_model.dart';
 import 'package:flutter_wan/model/wx_article_title_model.dart';
+import 'package:flutter_wan/model/navi_model.dart';
+import 'package:flutter_wan/model/projectlist_model.dart';
+import 'package:flutter_wan/model/project_tree_model.dart';
 
 class ApiService{
 
@@ -96,6 +99,37 @@ class ApiService{
       callback(WxArticleTitleModel(response.data));
     }).catchError((e) {
       errorback(e);
+    });
+  }
+
+  /// 获取导航列表数据
+  void getNaviList(Function callback, Function errorback) async {
+    DioManager.singleton.dio
+        .get(Api.NAVI_LIST, options: _getOptions())
+        .then((response) {
+      callback(NaviModel(response.data));
+    }).catchError((e) {
+      errorback(e);
+    });
+  }
+
+  /// 获取项目分类
+  void getProjectTree(Function callback,Function errorback) async {
+    DioManager.singleton.dio
+        .get(Api.PROJECT_TREE, options: _getOptions())
+        .then((response) {
+      callback(ProjectTreeModel(response.data));
+    }).catchError((e) {
+      errorback(e);
+    });
+  }
+
+  /// 获取项目列表
+  void getProjectList(Function callback, int _page, int _id) async {
+    DioManager.singleton.dio
+        .get(Api.PROJECT_LIST + "$_page/json?cid=$_id", options: _getOptions())
+        .then((response) {
+      callback(ProjectTreeListModel(response.data));
     });
   }
 

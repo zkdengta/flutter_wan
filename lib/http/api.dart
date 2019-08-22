@@ -15,4 +15,10 @@ class Api{
   static const String WX_ARTICLE_LIST = "https://wanandroid.com/wxarticle/list/";
   // 公众号名称
   static const String WX_LIST = "https://wanandroid.com/wxarticle/chapters/json";
+  // 导航列表数据
+  static const String NAVI_LIST = "https://www.wanandroid.com/navi/json";
+  // 项目分类
+  static const String PROJECT_TREE = "https://www.wanandroid.com/project/tree/json";
+  // 项目列表
+  static const String PROJECT_LIST = "https://www.wanandroid.com/project/list/";
 }
