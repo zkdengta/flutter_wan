@@ -6,6 +6,8 @@ import 'package:flutter_wan/common/application.dart';
 import 'package:flutter_wan/event/change_theme_event.dart';
 import 'package:share/share.dart';
 import 'package:flutter_wan/common/user.dart';
+import 'package:flutter_wan/ui/drawer/pretty_page.dart';
+import 'package:flutter_wan/ui/drawer/about_page.dart';
 
 class DrawerPage extends StatefulWidget {
   @override
@@ -113,7 +115,7 @@ class _DrawerPage extends State<DrawerPage>{
             leading: Icon(Icons.share,size: 22.0,),
             onTap: (){
               Share.share(
-                  '给你推荐一个特别好玩的应用玩安卓客户端，点击下载：https://www.pgyer.com/haFL'
+                  '给你推荐一个特别好玩的应用玩安卓客户端，点击下载：https://github.com/zkdengta/flutter_wan'
               );
             },
           ),
@@ -124,10 +126,10 @@ class _DrawerPage extends State<DrawerPage>{
             ),
             leading: Icon(Icons.directions_bike, size: 22.0),
             onTap: () {
-//              Navigator.of(context)
-//                  .push(new MaterialPageRoute(builder: (context) {
-//                return new PrettyPage();
-//              }));
+              Navigator.of(context)
+                  .push(new MaterialPageRoute(builder: (context) {
+                return new PrettyPage();
+              }));
             },
           ),
           ListTile(
@@ -137,10 +139,10 @@ class _DrawerPage extends State<DrawerPage>{
             ),
             leading: Icon(Icons.info, size: 22.0),
             onTap: () {
-//              Navigator.of(context)
-//                  .push(new MaterialPageRoute(builder: (context) {
-//                return new AboutMePage();
-//              }));
+              Navigator.of(context)
+                  .push(new MaterialPageRoute(builder: (context) {
+                return new AboutPage();
+              }));
             },
           ),
              logoutWidget()

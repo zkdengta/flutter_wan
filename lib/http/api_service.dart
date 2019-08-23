@@ -13,6 +13,7 @@ import 'package:flutter_wan/model/wx_article_title_model.dart';
 import 'package:flutter_wan/model/navi_model.dart';
 import 'package:flutter_wan/model/projectlist_model.dart';
 import 'package:flutter_wan/model/project_tree_model.dart';
+import 'package:flutter_wan/model/pretty_model.dart';
 
 class ApiService{
 
@@ -130,6 +131,15 @@ class ApiService{
         .get(Api.PROJECT_LIST + "$_page/json?cid=$_id", options: _getOptions())
         .then((response) {
       callback(ProjectTreeListModel(response.data));
+    });
+  }
+
+  ///妹子图
+  void getPrettyGirl(Function callback, int _page) async {
+    DioManager.singleton.dio
+        .get("http://gank.io/api/data/福利/10/" + "$_page")
+        .then((response) {
+      callback(PrettyModel.fromMap(response.data));
     });
   }
 

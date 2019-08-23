@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wan/drawer/drawer.dart';
+import 'package:flutter_wan/ui/drawer/drawer.dart';
 import 'package:flutter_wan/ui/search/search.dart';
 import 'package:flutter_wan/ui/home/home_page.dart';
 import 'package:flutter_wan/ui/knowledge/knowledge_page.dart';
