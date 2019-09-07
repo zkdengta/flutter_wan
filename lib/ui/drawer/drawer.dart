@@ -8,6 +8,7 @@ import 'package:share/share.dart';
 import 'package:flutter_wan/common/user.dart';
 import 'package:flutter_wan/ui/drawer/pretty_page.dart';
 import 'package:flutter_wan/ui/drawer/about_page.dart';
+import 'package:flutter_wan/ui/drawer/common_website_page.dart';
 
 class DrawerPage extends StatefulWidget {
   @override
@@ -72,7 +73,10 @@ class _DrawerPage extends State<DrawerPage>{
             ),
             leading: Icon(Icons.web,size: 22.0,),
             onTap: (){
-
+              Navigator.of(context)
+                  .push(new MaterialPageRoute(builder: (context) {
+                return new CommonWebsitePage();
+              }));
             },
           ),
           ListTile(

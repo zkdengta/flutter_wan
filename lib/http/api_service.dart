@@ -14,6 +14,7 @@ import 'package:flutter_wan/model/navi_model.dart';
 import 'package:flutter_wan/model/projectlist_model.dart';
 import 'package:flutter_wan/model/project_tree_model.dart';
 import 'package:flutter_wan/model/pretty_model.dart';
+import 'package:flutter_wan/model/common_websit_model.dart';
 
 class ApiService{
 
@@ -140,6 +141,17 @@ class ApiService{
         .get("http://gank.io/api/data/福利/10/" + "$_page")
         .then((response) {
       callback(PrettyModel.fromMap(response.data));
+    });
+  }
+
+  ///常用网站
+  void getCommonWebsite(Function callback, Function errorback) async {
+    DioManager.singleton.dio
+        .get(Api.COMMON_WEBSITE, options: _getOptions())
+        .then((response) {
+      callback(CommonWebsitModel.fromMap(response.data));
+    }).catchError((e) {
+      errorback(e);
     });
   }
 
