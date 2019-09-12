@@ -9,6 +9,8 @@ import 'package:flutter_wan/common/user.dart';
 import 'package:flutter_wan/ui/drawer/pretty_page.dart';
 import 'package:flutter_wan/ui/drawer/about_page.dart';
 import 'package:flutter_wan/ui/drawer/common_website_page.dart';
+import 'package:flutter_wan/ui/login/login_page.dart';
+import 'package:flutter_wan/event/login_event.dart';
 
 class DrawerPage extends StatefulWidget {
   @override
@@ -19,6 +21,30 @@ class _DrawerPage extends State<DrawerPage>{
 
   bool isLogin = false;
   String username = "未登录";
+
+  @override
+  void initState() {
+    super.initState();
+    this.registerLoginEvent();
+    if (null != User.singleton.userName) {
+      isLogin = true;
+      username = User.singleton.userName;
+    }
+  }
+
+  void registerLoginEvent() {
+    Application.eventBus.on<LoginEvent>().listen((event) {
+      changeUI();
+    });
+  }
+
+  changeUI() async {
+    setState(() {
+      isLogin = true;
+      username = User.singleton.userName;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -33,9 +59,9 @@ class _DrawerPage extends State<DrawerPage>{
               ),
               onTap: () {
                 if(!isLogin){
-//                  Navigator.of(context).push(new MaterialPageRoute(builder: (context){
-//                    return new LogingPage();
-//                  }));
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (context){
+                    return new LoginPage();
+                  }));
                 }
               },
             ),
@@ -45,9 +71,9 @@ class _DrawerPage extends State<DrawerPage>{
               ),
               onTap:() {
                 if(!isLogin) {
-//                  Navigator.of(context).push(new MaterialPageRoute(builder: (context){
-//                    return new LogingPage();
-//                  }));
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (context){
+                    return new LoginPage();
+                  }));
                  }
                  } ,
             ),
@@ -60,9 +86,9 @@ class _DrawerPage extends State<DrawerPage>{
             leading: Icon(Icons.collections,size: 22.0,),
             onTap: (){
               if(isLogin){
-
+                onCollectionClick();
               }else{
-
+                onLoginClick();
               }
             },
           ),
@@ -176,6 +202,18 @@ class _DrawerPage extends State<DrawerPage>{
         height: 0,
       );
     }
+  }
+
+  void onCollectionClick() async {
+//    await Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+//      return new CollectionsPage();
+//    }));
+  }
+
+  void onLoginClick() async {
+    await Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+      return new LoginPage();
+    }));
   }
 
 

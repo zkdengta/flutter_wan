@@ -15,6 +15,7 @@ import 'package:flutter_wan/model/projectlist_model.dart';
 import 'package:flutter_wan/model/project_tree_model.dart';
 import 'package:flutter_wan/model/pretty_model.dart';
 import 'package:flutter_wan/model/common_websit_model.dart';
+import 'package:flutter_wan/model/user_model.dart';
 
 class ApiService{
 
@@ -152,6 +153,32 @@ class ApiService{
       callback(CommonWebsitModel.fromMap(response.data));
     }).catchError((e) {
       errorback(e);
+    });
+  }
+
+  /// 登录
+  void login(Function callback, String _username, String _password) async {
+    FormData formData =
+    new FormData.from({"username": _username, "password": _password});
+    DioManager.singleton.dio
+        .post(Api.USER_LOGIN, data: formData, options: _getOptions())
+        .then((response) {
+      callback(UserModel(response.data), response);
+    });
+  }
+
+  /// 注册
+  void register(Function callback, String _username, String _password) async {
+    FormData formData = new FormData.from({
+      "username": _username,
+      "password": _password,
+      "repassword": _password
+    });
+    DioManager.singleton.dio
+        .post(Api.USER_REGISTER, data: formData, options: null)
+        .then((response) {
+      print(response.toString());
+      callback(UserModel(response.data));
     });
   }
 

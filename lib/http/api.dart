@@ -24,4 +24,9 @@ class Api{
 
   //常用网站
   static const String COMMON_WEBSITE = "https://www.wanandroid.com/friend/json";
+
+  // 用户登录
+  static const String USER_LOGIN = "https://www.wanandroid.com/user/login";
+  // 用户注册
+  static const String USER_REGISTER = "https://www.wanandroid.com/user/register";
 }
