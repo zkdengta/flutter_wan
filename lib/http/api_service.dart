@@ -16,6 +16,8 @@ import 'package:flutter_wan/model/project_tree_model.dart';
 import 'package:flutter_wan/model/pretty_model.dart';
 import 'package:flutter_wan/model/common_websit_model.dart';
 import 'package:flutter_wan/model/user_model.dart';
+import 'package:flutter_wan/model/base_model.dart';
+import 'package:flutter_wan/model/collection_model.dart';
 
 class ApiService{
 
@@ -179,6 +181,32 @@ class ApiService{
         .then((response) {
       print(response.toString());
       callback(UserModel(response.data));
+    });
+  }
+
+  /// 获取收藏列表
+  void getCollectionList(
+      Function callback, Function errorback, int _page) async {
+    DioManager.singleton.dio
+        .get(Api.COLLECTION_LIST + "$_page/json", options: _getOptions())
+        .then((response) {
+      callback(CollectionModel(response.data));
+    }).catchError((e) {
+      errorback(e);
+    });
+  }
+
+  /// 我的收藏-取消收藏
+  void cancelCollection(
+      Function callback, Function errorback, int _id, int _originId) async {
+    FormData formData = new FormData.from({"originId": _originId});
+    DioManager.singleton.dio
+        .post(Api.CANCEL_COLLECTION + "$_id/json",
+        data: formData, options: _getOptions())
+        .then((response) {
+      callback(BaseModel(response.data));
+    }).catchError((e) {
+      errorback(e);
     });
   }
 

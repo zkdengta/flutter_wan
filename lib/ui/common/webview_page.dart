@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:flutter_wan/util/theme_util.dart';
+import 'package:flutter_wan/widget/likebtn/like_button.dart';
 
 class WebViewPage extends StatefulWidget {
   String title;
   String url;
-
 
   WebViewPage({
     Key key,
@@ -57,6 +57,12 @@ class WebViewPageState extends State<WebViewPage>{
               new Divider(height: 1.0,color: ThemeUtils.currentColorTheme,),
               preferredSize: const Size.fromHeight(1.0),
           ),
+          actions: <Widget>[
+            LikeButton(
+              width: 56.0,
+              duration: Duration(milliseconds: 500),
+            ),
+          ],
         ),
         withJavascript: true,
         withZoom: true,

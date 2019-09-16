@@ -29,4 +29,13 @@ class Api{
   static const String USER_LOGIN = "https://www.wanandroid.com/user/login";
   // 用户注册
   static const String USER_REGISTER = "https://www.wanandroid.com/user/register";
+
+  // 收藏列表
+  static const String COLLECTION_LIST = "https://www.wanandroid.com/lg/collect/list/";
+
+  // 我的收藏-取消收藏
+  static const String CANCEL_COLLECTION = "https://www.wanandroid.com/lg/uncollect/";
+
+  // 我的收藏-新增收藏
+  static const String ADD_COLLECTION = "https://www.wanandroid.com/lg/collect/add/json";
 }
