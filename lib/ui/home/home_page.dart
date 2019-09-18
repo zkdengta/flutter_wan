@@ -177,7 +177,9 @@ class HomePageState extends BaseWidgetState<HomePage>{
           Navigator.of(context).push(new MaterialPageRoute(builder: (context){
             return new WebViewPage(
                 title: _datas[index-1].title,
-                url:  _datas[index-1].link
+                url:  _datas[index-1].link,
+                id: _datas[index-1].id,
+                collect: _datas[index-1].collect,
             );
           }));
         },

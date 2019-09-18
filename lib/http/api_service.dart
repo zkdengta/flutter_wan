@@ -18,6 +18,7 @@ import 'package:flutter_wan/model/common_websit_model.dart';
 import 'package:flutter_wan/model/user_model.dart';
 import 'package:flutter_wan/model/base_model.dart';
 import 'package:flutter_wan/model/collection_model.dart';
+import 'package:flutter_wan/model/website_collection_model.dart';
 
 class ApiService{
 
@@ -207,6 +208,46 @@ class ApiService{
       callback(BaseModel(response.data));
     }).catchError((e) {
       errorback(e);
+    });
+  }
+
+  /// 获取网络收藏列表
+  void getWebsiteCollectionList(
+      Function callback, Function errorback) async {
+    DioManager.singleton.dio
+        .get(Api.WEBSITE_COLLECTION_LIST , options: _getOptions())
+        .then((response) {
+      callback(WebsiteCollectionModel(response.data));
+    }).catchError((e) {
+      errorback(e);
+    });
+  }
+
+  /// 新增网站收藏
+  void addWebsiteCollectionList(Function callback, String name,String link) async {
+    FormData formData = new FormData.from({
+      "name": name,
+      "link": link,
+    });
+    DioManager.singleton.dio
+        .post(Api.ADD_WEBSITE_COLLECTION,
+        data: formData, options: _getOptions())
+        .then((response) {
+      callback(BaseModel(response.data));
+    });
+  }
+
+
+  /// 取消网站收藏
+  void cancelWebsiteCollectionList(Function callback, int _id) async {
+    FormData formData = new FormData.from({
+      "id": _id,
+    });
+    DioManager.singleton.dio
+        .post(Api.CANCEL_WEBSITE_COLLECTION,
+        data: formData, options: _getOptions())
+        .then((response) {
+      callback(BaseModel(response.data));
     });
   }
 

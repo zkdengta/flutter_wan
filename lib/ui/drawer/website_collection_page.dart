@@ -7,10 +7,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_wan/base/base_widget.dart';
 import 'package:flutter_wan/http/api_service.dart';
 import 'package:flutter_wan/model/base_model.dart';
-import 'package:flutter_wan/model/collection_model.dart';
+import 'package:flutter_wan/model/website_collection_model.dart';
 import 'package:flutter_wan/ui/common/webview_page.dart';
 
-class CollectionPage extends BaseWidget {
+class WebSiteCollectionPage extends BaseWidget {
   @override
   BaseWidgetState<BaseWidget> getState() {
     // TODO: implement getState
@@ -19,24 +19,23 @@ class CollectionPage extends BaseWidget {
 
 }
 
-class CollectionPageState extends BaseWidgetState<CollectionPage>{
+class CollectionPageState extends BaseWidgetState<WebSiteCollectionPage>{
 
-  List<Collection> _datas = new List();
+  List<WebsiteCollectionData> _datas = new List();
   ScrollController _scrollController = ScrollController();
-  int _page = 0;
+
   bool showToTopBtn = false;
 
   Future<Null> getData() async {
-    _page = 0;
-    ApiService().getCollectionList((
-        CollectionModel _collectionModel,
+    ApiService().getWebsiteCollectionList((
+        WebsiteCollectionModel _collectionModel,
         ) {
       if (_collectionModel.errorCode==0) {//成功
-        if (_collectionModel.data.datas.length > 0) {//有数据
+        if (_collectionModel.data.length > 0) {//有数据
           showContent();
           setState(() {
             _datas.clear();
-            _datas.addAll(_collectionModel.data.datas);
+            _datas.addAll(_collectionModel.data);
           });
         } else {//数据为空
           showEmpty();
@@ -49,32 +48,7 @@ class CollectionPageState extends BaseWidgetState<CollectionPage>{
       setState(() {
         showError();
       });
-    }, _page);
-  }
-
-  Future<Null> _getMore() async {
-    _page++;
-    ApiService().getCollectionList((
-        CollectionModel _collectionModel,
-        ){
-      if (_collectionModel.errorCode==0) {//成功
-        showContent();
-        if (_collectionModel.data.datas.length > 0) {//有数据
-          setState(() {
-            _datas.addAll(_collectionModel.data.datas);
-          });
-        } else {//数据为空
-          Fluttertoast.showToast(msg:"没有更多数据了");
-        }
-      }else{
-        Fluttertoast.showToast(msg: _collectionModel.errorMsg);
-      }
-    }, (DioError error) {
-      print(error.response);
-      setState(() {
-        showError();
-      });
-    }, _page);
+    });
   }
 
   @override
@@ -82,12 +56,7 @@ class CollectionPageState extends BaseWidgetState<CollectionPage>{
     super.initState();
     showLoading();
     getData();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        _getMore();
-      }
-    });
+
     _scrollController.addListener(() {
       //当前位置是否超过屏幕高度
       if (_scrollController.offset < 200 && showToTopBtn) {
@@ -102,8 +71,8 @@ class CollectionPageState extends BaseWidgetState<CollectionPage>{
     });
   }
 
-  Future<Null> _cancelCollection(int index, int id, int originId) async{
-    ApiService().cancelCollection((BaseModel _baseModel){
+  Future<Null> _cancelCollection(int index, int id) async{
+    ApiService().cancelWebsiteCollectionList((BaseModel _baseModel){
       if(_baseModel.errorCode == 0){
         _datas.removeAt(index);
       }
@@ -113,12 +82,7 @@ class CollectionPageState extends BaseWidgetState<CollectionPage>{
       setState(() {
 
       });
-    }, (DioError error){
-      print(error.response);
-      setState(() {
-        showError();
-      });
-    }, id, originId);
+    }, id);
   }
 
   @override
@@ -173,15 +137,17 @@ class CollectionPageState extends BaseWidgetState<CollectionPage>{
       onTap: (){
         Navigator.of(context).push(new MaterialPageRoute(builder: (context){
           return WebViewPage(
-            title: _datas[index].title,
+            title: _datas[index].name,
             url: _datas[index].link,
+            id: _datas[index].id,
+            collect: true,
           );
         }));
       },
     );
   }
 
-  Widget _slideRpw(int index, Collection data) {
+  Widget _slideRpw(int index, WebsiteCollectionData data) {
     return Slidable(
       delegate: new SlidableBehindDelegate(),
       actionExtentRatio: 0.25,
@@ -192,42 +158,23 @@ class CollectionPageState extends BaseWidgetState<CollectionPage>{
             color: Colors.red,
             icon: Icons.delete,
           onTap: (){
-            _cancelCollection(index, data.id, data.originId);
+            _cancelCollection(index, data.id);
           },
         )
       ],
     );
   }
 
-  Widget _newsRow(Collection data) {
+  Widget _newsRow(WebsiteCollectionData data) {
     return Column(
       children: <Widget>[
-        new Container(
-          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                "作者："+data.author,
-                style: TextStyle(fontSize: 12.0),
-              ),
-              Expanded(
-                child: Text(
-                  "收藏时间："+data.niceDate,
-                  style:TextStyle(fontSize: 12.0),
-                  textAlign: TextAlign.right,
-                ),
-              ),
-            ],
-          ),
-        ),
         Container(
           padding: EdgeInsets.fromLTRB(16.0, 0, 16.0, 0),
           child: Row(
             children: <Widget>[
               Expanded(
                 child: Text(
-                  data.title,
+                  data.name,
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -239,16 +186,15 @@ class CollectionPageState extends BaseWidgetState<CollectionPage>{
             ],
           ),
         ),
-        Container(
-          padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-          child: Row(
+        new Container(
+          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              data.chapterName.isNotEmpty ? Expanded(
-                child: Text(
-                  "分类："+ data.chapterName,
-                  style: TextStyle(fontSize: 12.0),
-                ),
-              ):Text("")
+              Text(
+                data.link,
+                style: TextStyle(fontSize: 12.0),
+              ),
             ],
           ),
         ),

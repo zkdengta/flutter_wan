@@ -12,6 +12,7 @@ import 'package:flutter_wan/ui/drawer/common_website_page.dart';
 import 'package:flutter_wan/ui/login/login_page.dart';
 import 'package:flutter_wan/event/login_event.dart';
 import 'package:flutter_wan/ui/drawer/collection_page.dart';
+import 'package:flutter_wan/ui/drawer/website_collection_page.dart';
 
 class DrawerPage extends StatefulWidget {
   @override
@@ -207,7 +208,7 @@ class _DrawerPage extends State<DrawerPage>{
 
   void onCollectionClick() async {
     await Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new CollectionPage();
+      return new WebSiteCollectionPage();
     }));
   }
 

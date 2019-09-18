@@ -19,7 +19,7 @@ class LikeButton extends StatefulWidget {
     @required this.width,
     this.icon = const LikeIcon(
       Icons.favorite,
-      iconColor: Colors.pinkAccent,
+      iconColor: Colors.yellow,
     ),
     this.duration = const Duration(milliseconds: 5000),
     this.dotColor = const DotColor(

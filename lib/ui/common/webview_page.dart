@@ -2,15 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:flutter_wan/util/theme_util.dart';
 import 'package:flutter_wan/widget/likebtn/like_button.dart';
+import 'package:flutter_wan/http/api_service.dart';
+import 'package:flutter_wan/model/base_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_wan/widget/likebtn/model.dart';
 
 class WebViewPage extends StatefulWidget {
   String title;
   String url;
+  int id;
+  bool collect;
 
   WebViewPage({
     Key key,
     @required this.title,
-     @required this.url,
+    @required this.url,
+    @required this.id,
+    @required this.collect,
   }):super(key : key);
 
   @override
@@ -24,6 +32,31 @@ class WebViewPage extends StatefulWidget {
 class WebViewPageState extends State<WebViewPage>{
   bool isLoad = true;
   final flutterWebViewPlugin = new FlutterWebviewPlugin();
+  bool isLike = false;
+
+  //新增收藏
+  Future<Null> addCollect() async {
+    ApiService().addWebsiteCollectionList((BaseModel _baseModel) {
+      if (_baseModel.errorCode == 0) {
+        //成功
+        Fluttertoast.showToast(msg: "收藏成功！");
+      } else {
+        Fluttertoast.showToast(msg: _baseModel.errorMsg);
+      }
+    },widget.title,widget.url);
+  }
+
+  //取消收藏
+  Future<Null> cancelCollect() async {
+    ApiService().cancelWebsiteCollectionList((BaseModel _baseModel) {
+      if (_baseModel.errorCode == 0) {
+        //成功
+        Fluttertoast.showToast(msg: "取消收藏！");
+      } else {
+        Fluttertoast.showToast(msg: _baseModel.errorMsg);
+      }
+    },widget.id);
+  }
 
   @override
   void initState() {
@@ -41,6 +74,19 @@ class WebViewPageState extends State<WebViewPage>{
         });
       }
     });
+    if(widget.collect){
+      setState(() {
+        isLike = true;
+      });
+
+    }else{
+      setState(() {
+        isLike = false;
+      });
+    }
+
+    print(widget.collect);
+    print(isLike);
   }
 
   @override
@@ -61,6 +107,16 @@ class WebViewPageState extends State<WebViewPage>{
             LikeButton(
               width: 56.0,
               duration: Duration(milliseconds: 500),
+              onIconClicked: (isLike){
+                if(isLike){
+                  cancelCollect();
+                }else{
+                  addCollect();
+                }
+                setState(() {
+                  isLike = !isLike;
+                });
+              },
             ),
           ],
         ),

@@ -38,4 +38,11 @@ class Api{
 
   // 我的收藏-新增收藏
   static const String ADD_COLLECTION = "https://www.wanandroid.com/lg/collect/add/json";
+
+  // 网站收藏
+  static const String WEBSITE_COLLECTION_LIST = "https://www.wanandroid.com/lg/collect/usertools/json";
+  // 取消网站收藏
+  static const String CANCEL_WEBSITE_COLLECTION = "https://www.wanandroid.com/lg/collect/deletetool/json";
+  // 新增网站收藏
+  static const String ADD_WEBSITE_COLLECTION = "https://www.wanandroid.com/lg/collect/addtool/json";
 }
